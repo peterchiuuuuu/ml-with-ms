@@ -1,0 +1,13 @@
+body {
+    background: black;
+    color: yellow;
+}
+
+.float-container {
+    padding: 20px;
+}
+
+.float-child {
+    padding: 20px;	
+    float: left;
+}  

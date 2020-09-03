@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+   <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/main1.css') }}" />
+  </head>
+    <body> 
+        <p>
+          <a href="{{ url_for('index') }} " style="color:white;">Return</a>
+        </p>
+        <div class="float-container">
+          <div id="loading" class="float-child" align="middle"
+            style ="
+                background-image: url('/static/back.gif');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 700px 700px;
+                "
+              >
+            </style>
+           <img id="loading-image" src="{{ url_for('plot_png', homo_desire = homo_desire, lumo_desire = lumo_desire, ramdom_sample_value = ramdom_sample_value, dis = dis, std = std) }}" width="700" height="700" /> <br />
+          </div>
+          <div class="float-child">
+            <p>
+              User's request: </br>
+              HOMO: {{ homo_desire }} </br>
+              LUMO: {{ lumo_desire }} </br>
+              ramdom sample points: {{ ramdom_sample_value }} </br>
+              ---------------------------- </br>
+            The most likely molecular in QM9: </br>
+              <img src="{{ url_for('plot_smiles', smile_name = out[highest_desire_value_index]) }}" width="200" height="200" /> </br>
+            SMILES: {{ out[highest_desire_value_index] }} </br>
+            True HOMO = {{ y_homo[highest_desire_value_index] }} </br>
+            True LIMO = {{ y_lumo[highest_desire_value_index] }} </br>
+
+              ============================ </br>
+            </p>
+            {% for i in predict_list %}
+            <p>
+              {% if i[0] == 'XXXXX' %}
+                Not Valid Structure!! </br>
+                count = {{ i[1][7] }}</br>
+                ---------------------------- </br>
+              {% else %} 
+                <img src="{{ url_for('plot_smiles', smile_name = i[0]) }}" width="200" height="200" /> </br>
+                SMILES: {{ i[0] }} </br>
+                prediction accuracy: {{ i[1][0] }} </br>
+                count = {{ i[1][7] }}</br>
+                 </br>
+                Database information: </br>
+                {% if i[1][1] is not none %}
+                  True HOMO = {{ i[1][1] }} </br>
+                  True LIMO = {{ i[1][2] }} </br>
+                {% else %} 
+                  No information about this molecular in QM9! </br>
+                {% endif %}
+                 </br>
+                Prediction information: </br>
+                HOMO: mean = {{ i[1][3] }}, std = {{ i[1][4] }}</br>
+                LIMO: mean = {{ i[1][5] }}, std = {{ i[1][6] }}</br>
+                match coefficient: mean = {{ i[1][8] }}, std = {{ i[1][9] }}</br>
+
+                ---------------------------- </br>
+              {% endif %} 
+            </p>
+            {% endfor %}
+          </div>
+          
+        </div>
+      
+   </body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/main1.css') }}" />
+  </head>
+  <body>
+    <form action = "{{ url_for('result') }}" method = "POST">
+     <p>Optimal HOMO energy needed?(value in range -0.1100 ~ -0.400, in Hartree) <input type = "number" step="0.0001" min="-0.400" max="-0.1100" name = "homo_desire" value = "-0.2100"/></p>
+     <p>Optimal LUMO energy needed?(value in range 0.1900 ~ -0.1700, in Hartree) <input type = "number" step="0.0001" min="-0.1700" max="0.1900" name = "lumo_desire" value = "0.0100"/></p>
+     <p>How many random sample do you want? (accept only 1-10000) <input type = "number" min="1" max="10000" name = "ramdom_sample_value" value = "5"/></p>
+     <p>Eudicean distance for optimization? (1-20, default: 5) <input type = "number" min="1" max="20" name = "dis" value = "5"/></p>
+     <p>Standard for normal distribution? (0.01 - 0.50, default: 0.1) <input type = "number" step="0.01" min="0.01" max="0.50" name = "std" value = "0.10"/></p>
+
+     <p><input type = "submit" value = "submit" /></p>
+    </form>
+  </body>
+</html>
